@@ -1,5 +1,4 @@
-import serial;
-
+#include <Arduino.h>
 
 int valorSensor;
 int sensor = 0;
@@ -16,21 +15,27 @@ void setup() {
   pinMode(ledAmarelo, OUTPUT);
   pinMode(ledVerde, OUTPUT);
   Serial.begin(9600);
-  
 }
-void loop() :
+
+void loop() {
   valorSensor = analogRead(sensor);
 
   Serial.println("=============================");
 
   if (valorSensor < 450) {
     digitalWrite(ledAmarelo, HIGH);
+    digitalWrite(ledVermelho, LOW);
+    digitalWrite(ledVerde, LOW);
     Serial.println("Está escuro");
   } else if (valorSensor >= 450 && valorSensor < 549) {
     digitalWrite(ledVerde, HIGH);
+    digitalWrite(ledVermelho, LOW);
+    digitalWrite(ledAmarelo, LOW);
     Serial.println("Está bom");
   } else {
     digitalWrite(ledVermelho, HIGH);
+    digitalWrite(ledAmarelo, LOW);
+    digitalWrite(ledVerde, LOW);
     Serial.println("Ambiente está iluminado demais");
   }
 
@@ -38,10 +43,10 @@ void loop() :
   Serial.println(valorSensor);
   Serial.println("=============================");
   Serial.println();
-    delay(2000);
-  
+  delay(2000);
+
   valorTemp = analogRead(tempera);
-   if (valorTemp < 90) {
+  if (valorTemp < 90) {
     Serial.println("Está frio");
   } else if (valorTemp >= 90 && valorTemp < 180) {
     Serial.println("Está bom a temperatura");
@@ -52,9 +57,5 @@ void loop() :
   Serial.print("Valor lido pelo sensor de temperatura: ");
   Serial.println(valorTemp);
   Serial.println();
-    delay(2000);
-    valorSensor = analogRead(tempera);
-  
-  
-
-
+  delay(2000);
+}
